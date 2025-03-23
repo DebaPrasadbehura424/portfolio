@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -33,29 +34,19 @@ mongoose
     console.log("Error is: ", err);
   });
 
-// Define the user schema
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   contactNumber: { type: String, required: true },
   description: { type: String },
 });
 
-// Create a user model
 const User = mongoose.model("User", userSchema);
 
-// Test route to check if backend is running
 app.get("/", (req, res) => {
   res.send("Backend is running & all are good");
 });
 
-// Post request for user data
 app.post("/users", async (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://portfolio-frontend-theta-sepia.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   const { name, contactNumber, description } = req.body;
   try {
     const newUser = new User({ name, contactNumber, description });
@@ -69,7 +60,6 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });

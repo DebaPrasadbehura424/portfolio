@@ -3,18 +3,16 @@ import axios from "axios";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
-  const [contactNumber, setContactNumber] = useState(""); // Contact number state
-  const [description, setDescription] = useState(""); // Description state
+  const [contactNumber, setContactNumber] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSend = () => {
-    // Prepare data for submission
     const formData = {
       name,
       contactNumber,
       description,
     };
 
-    // Send POST request to the backend
     axios
       .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData, {
         headers: {
@@ -30,14 +28,12 @@ const ContactUs = () => {
         alert("Error sending form: ", err);
       });
 
-    // Reset form fields
     setName("");
     setContactNumber("");
     setDescription("");
   };
 
   const handleCancel = () => {
-    // Reset form fields when cancel is clicked
     setName("");
     setContactNumber("");
     setDescription("");
@@ -48,7 +44,6 @@ const ContactUs = () => {
       <div className="bg-[#181818] text-white p-10 rounded-t-xl w-full max-w-lg mx-auto mb-8">
         <h2 className="text-4xl font-semibold text-center mb-8">Contact Us</h2>
         <form className="space-y-6">
-          {/* Name Input */}
           <div className="space-y-2">
             <label
               htmlFor="name"
@@ -66,7 +61,6 @@ const ContactUs = () => {
             />
           </div>
 
-          {/* Contact Number Input - Set to type "number" */}
           <div className="space-y-2">
             <label
               htmlFor="contactNumber"
@@ -75,7 +69,7 @@ const ContactUs = () => {
               Contact Number
             </label>
             <input
-              type="number" // Number type for phone validation
+              type="number"
               id="contactNumber"
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value)}
@@ -84,7 +78,6 @@ const ContactUs = () => {
             />
           </div>
 
-          {/* Thoughts/Needs Textarea */}
           <div className="space-y-2">
             <label
               htmlFor="description"
@@ -102,7 +95,6 @@ const ContactUs = () => {
             ></textarea>
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-between gap-4">
             <button
               type="button"
