@@ -16,7 +16,11 @@ const ContactUs = () => {
 
     // Send POST request to the backend
     axios
-      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData) // Backend URL
+      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           alert("Form sent successfully");

@@ -5,12 +5,10 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS Configuration - Allowing your frontend origin
-const whitelist = ["https://portfolio-frontend-theta-sepia.vercel.app"]; // Frontend URL
+const whitelist = ["https://portfolio-frontend-theta-sepia.vercel.app"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
-      // Allow requests from allowed origins
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -22,11 +20,12 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(cors(corsOptions)); // Apply CORS middleware
+app.use(cors(corsOptions));
 
-// MongoDB connection using process.env for security
 mongoose
-  .connect(process.env.MONGO_URI) // Store this URI in .env file
+  .connect(
+    "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/Namaste?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => {
     console.log("connected to database");
   })
@@ -51,6 +50,12 @@ app.get("/", (req, res) => {
 
 // Post request for user data
 app.post("/users", async (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://portfolio-frontend-theta-sepia.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   const { name, contactNumber, description } = req.body;
   try {
     const newUser = new User({ name, contactNumber, description });
