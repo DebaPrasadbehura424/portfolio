@@ -10,7 +10,7 @@ const corsOptions = {
   origin: (origin, callback) => {
     if (
       origin === "http://localhost:5173" ||
-      origin === "https://portfolio-frontend-theta-sepia.vercel.app"
+      origin === "https://portfolio-frontend-theta-sepia.vercel.app/contactus"
     ) {
       callback(null, true);
     } else {
