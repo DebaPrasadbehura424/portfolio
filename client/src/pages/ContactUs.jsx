@@ -14,11 +14,7 @@ const ContactUs = () => {
     };
 
     axios
-      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData)
       .then((res) => {
         if (res.status === 201) {
           alert("Form sent successfully");

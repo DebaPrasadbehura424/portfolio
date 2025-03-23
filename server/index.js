@@ -4,24 +4,29 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
-const whitelist = ["https://portfolio-frontend-theta-sepia.vercel.app"];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type"],
-  credentials: true,
-};
+// const whitelist = ["https://portfolio-frontend-theta-sepia.vercel.app"];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type"],
+//   credentials: true,
+// };
 
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://portfolio-frontend-theta-sepia.vercel.app",
+    credentials: true,
+  })
+);
 
 mongoose
   .connect(
