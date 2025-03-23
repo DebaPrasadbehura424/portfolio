@@ -43,12 +43,9 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
+
   .connect(
-    "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.mongodb.net/Namaste?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+    "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/Namaste?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("Connected to MongoDB Atlas");
