@@ -1,35 +1,42 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 const ContactUs = () => {
   const [name, setName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [description, setThoughts] = useState("");
+  const [contactNumber, setContactNumber] = useState(""); // Contact number state
+  const [description, setDescription] = useState(""); // Description state
 
   const handleSend = () => {
+    // Prepare data for submission
     const formData = {
       name,
       contactNumber,
       description,
     };
+
+    // Send POST request to the backend
     axios
-      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData)
+      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData) // Backend URL
       .then((res) => {
         if (res.status === 201) {
-          alert("send successfully");
+          alert("Form sent successfully");
         }
       })
       .catch((err) => {
-        alert("Error : ", err);
+        alert("Error sending form: ", err);
       });
+
+    // Reset form fields
     setName("");
     setContactNumber("");
-    setThoughts("");
+    setDescription("");
   };
 
   const handleCancel = () => {
+    // Reset form fields when cancel is clicked
     setName("");
     setContactNumber("");
-    setThoughts("");
+    setDescription("");
   };
 
   return (
@@ -55,7 +62,7 @@ const ContactUs = () => {
             />
           </div>
 
-          {/* Contact Number Input */}
+          {/* Contact Number Input - Set to type "number" */}
           <div className="space-y-2">
             <label
               htmlFor="contactNumber"
@@ -64,7 +71,7 @@ const ContactUs = () => {
               Contact Number
             </label>
             <input
-              type="text"
+              type="number" // Number type for phone validation
               id="contactNumber"
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value)}
@@ -76,15 +83,15 @@ const ContactUs = () => {
           {/* Thoughts/Needs Textarea */}
           <div className="space-y-2">
             <label
-              htmlFor="thoughts"
+              htmlFor="description"
               className="block text-sm font-medium text-gray-300"
             >
               Share your thoughts/needs
             </label>
             <textarea
-              id="thoughts"
+              id="description"
               value={description}
-              onChange={(e) => setThoughts(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Share your thoughts or needs here"
               className="w-full p-3 bg-transparent border-b-2 border-gray-500 text-white placeholder-gray-400 focus:outline-none focus:border-gray-300"
               rows="4"
