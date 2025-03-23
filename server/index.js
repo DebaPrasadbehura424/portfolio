@@ -5,7 +5,19 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://portfolio-client-two-mauve.vercel.app",
+      "https://portfolio-client-dehabmohantys-projects.vercel.app",
+      "https://portfolio-client-git-main-dehabmohantys-projects.vercel.app",
+    ],
+    methods: ["POST"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 const PORT = 5000;

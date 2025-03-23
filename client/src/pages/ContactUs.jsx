@@ -12,23 +12,19 @@ const ContactUs = () => {
       contactNumber,
       description,
     };
+    const backenURI = "https://portfolio-server-seven-teal.vercel.app";
 
     axios
-      .post("/users", formData, {
-        withCredentials: true,
-      })
+      .post(`${backenURI}/api/users`, formData)
       .then((res) => {
         if (res.status === 201) {
           alert("Form sent successfully");
+          handleCancel();
         }
       })
       .catch((err) => {
         alert("Error sending form: ", err);
       });
-
-    setName("");
-    setContactNumber("");
-    setDescription("");
   };
 
   const handleCancel = () => {
