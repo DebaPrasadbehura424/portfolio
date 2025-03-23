@@ -1,12 +1,29 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const ContactUs = () => {
   const [name, setName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [thoughts, setThoughts] = useState("");
+  const [description, setThoughts] = useState("");
 
   const handleSend = () => {
-    console.log("Form Submitted:", { name, contactNumber, thoughts });
+    const formData = {
+      name,
+      contactNumber,
+      description,
+    };
+    axios
+      .post("http://localhost:5000/users", formData)
+      .then((res) => {
+        if (res.status === 201) {
+          alert("send successfully");
+        }
+      })
+      .catch((err) => {
+        alert("Error : ", err);
+      });
+    setName("");
+    setContactNumber("");
+    setThoughts("");
   };
 
   const handleCancel = () => {
@@ -16,7 +33,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#181818] flex items-end justify-center">
+    <div className="min-h-screen bg-gray-200 flex items-end justify-center">
       <div className="bg-[#181818] text-white p-10 rounded-t-xl w-full max-w-lg mx-auto mb-8">
         <h2 className="text-4xl font-semibold text-center mb-8">Contact Us</h2>
         <form className="space-y-6">
@@ -66,7 +83,7 @@ const ContactUs = () => {
             </label>
             <textarea
               id="thoughts"
-              value={thoughts}
+              value={description}
               onChange={(e) => setThoughts(e.target.value)}
               placeholder="Share your thoughts or needs here"
               className="w-full p-3 bg-transparent border-b-2 border-gray-500 text-white placeholder-gray-400 focus:outline-none focus:border-gray-300"
