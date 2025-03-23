@@ -14,7 +14,7 @@ const ContactUs = () => {
     };
 
     axios
-      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData, {
+      .post("/users", formData, {
         withCredentials: true,
       })
       .then((res) => {

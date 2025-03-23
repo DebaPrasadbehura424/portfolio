@@ -4,29 +4,15 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const PORT = 5000;
 
-const corsOptions = {
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-
-app.options("*", cors(corsOptions));
-
-app.use(cors(corsOptions));
-
-app.options("*", cors(corsOptions));
-
+app.use(cors());
 app.use(express.json());
 
-const uri =
-  "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/Namaste?retryWrites=true&w=majority&appName=Cluster0";
+const PORT = 5000;
 mongoose
-  .connect(uri)
+  .connect(
+    "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/Namaste?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => {
     console.log("connected to database");
   })
@@ -42,11 +28,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-app.get("/", (req, res) => {
-  res.send("Backend is running & all are good");
-});
-
-app.post("/users", async (req, res) => {
+app.post("/api/users", async (req, res) => {
   const { name, contactNumber, description } = req.body;
   try {
     const newUser = new User({ name, contactNumber, description });
