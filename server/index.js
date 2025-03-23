@@ -7,16 +7,7 @@ const app = express();
 const PORT = 5000;
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (
-      origin === "http://localhost:5173" ||
-      origin === "https://portfolio-frontend-theta-sepia.vercel.app/contactus"
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
