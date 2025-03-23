@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 // API endpoint to handle user submissions
-app.post("/api/users", async (req, res) => {
+app.post("/", async (req, res) => {
   const { name, contactNumber, description } = req.body;
 
   if (!name || !contactNumber) {

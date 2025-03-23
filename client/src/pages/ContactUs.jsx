@@ -23,7 +23,7 @@ const ContactUs = () => {
       const backendURI = "https://portfolio-server-seven-teal.vercel.app";
 
       setIsSubmitting(true); // Disable button while submitting
-      const response = await axios.post(`${backendURI}/api/users`, formData); // Use proxy for requests
+      const response = await axios.post(`${backendURI}`, formData); // Use proxy for requests
 
       if (response.status === 201) {
         alert("Form sent successfully!");
