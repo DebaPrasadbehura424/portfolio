@@ -12,7 +12,7 @@ const ContactUs = () => {
       description,
     };
     axios
-      .post("http://localhost:5000/users", formData)
+      .post("https://portfolio-backend-nine-zeta.vercel.app/users", formData)
       .then((res) => {
         if (res.status === 201) {
           alert("send successfully");

@@ -5,8 +5,19 @@ require("dotenv").config();
 const app = express();
 const PORT = 5000;
 
+const whitelist = ["https://portfolio-frontend-theta-sepia.vercel.app"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 mongoose
   .connect(
     "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/PortFolio?retryWrites=true&w=majority&appName=Cluster0"
