@@ -14,6 +14,9 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true,
 };
 
 app.use(express.json());
