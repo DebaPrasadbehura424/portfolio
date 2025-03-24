@@ -2,4 +2,22 @@ vercel.json
 node_modules/
 .env
 dist/
+*.log# Node.js
+node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Vercel or local environment
+.env
+.vercel/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 *.log
+.DS_Store
