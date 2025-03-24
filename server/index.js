@@ -8,7 +8,7 @@ const dotnev = require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://portfolio-client-two-mauve.vercel.app",
+    origin: "https://portfolio-client-nu-livid.vercel.app",
     credentials: true,
     methods: ["POST", "GET"],
     allowedHeaders: "*",
