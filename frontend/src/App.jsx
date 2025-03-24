@@ -1,0 +1,12 @@
+import { useState } from "react";
+import Contact from "./pages/Contact";
+
+function App() {
+  return (
+    <>
+      <Contact />
+    </>
+  );
+}
+
+export default App;
