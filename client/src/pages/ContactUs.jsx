@@ -20,19 +20,19 @@ const ContactUs = () => {
       description,
     };
     try {
-      const backendURI = "https://portfolio-server-seven-teal.vercel.app";
-
       setIsSubmitting(true);
-      const response = await axios.post(`${backendURI}`, formData);
+      const response = await axios.post(
+        "https://portfolio-server-seven-teal.vercel.app/users",
+        formData
+      );
 
       if (response.status === 201) {
         alert("Form sent successfully!");
-        handleCancel(); // Reset the form after success
+        handleCancel();
       }
     } catch (err) {
       console.error("Error sending form:", err);
 
-      // Display specific error if available
       if (err.response && err.response.data) {
         alert(`Error: ${err.response.data.message}`);
       } else {

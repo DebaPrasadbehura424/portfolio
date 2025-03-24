@@ -1,78 +1,54 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const app = express();
+const dotnev = require("dotenv").config();
 
-const allowedOrigins = [
-  "https://portfolio-client-two-mauve.vercel.app",
-  "https://portfolio-client-dehabmohantys-projects.vercel.app",
-  "https://portfolio-client-git-main-dehabmohantys-projects.vercel.app",
-];
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        console.error("Blocked by CORS - Origin not allowed:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
+    origin: "https://portfolio-client-two-mauve.vercel.app",
     credentials: true,
+    methods: ["POST", "GET"],
+    allowedHeaders: "*",
   })
 );
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 mongoose
   .connect(
-    "mongodb+srv://debaprasadbehura89:SrOPEXkCoTHEx1Fc@cluster0.9chhe.mongodb.net/Namaste?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://debaprasadbehura89:s5dY5LSzdhymR4AB@cluster0.9chhe.mongodb.net/Agent?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
-    console.log("Connected to MongoDB Atlas");
+    console.log("databse connected ");
   })
   .catch((err) => {
-    console.error("Error connecting to MongoDB Atlas:", err);
+    console.log(err);
   });
-
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  contactNumber: { type: String, required: true },
-  description: { type: String },
+  username: { type: String, required: true },
+  contactnumber: { type: String, required: true },
+  description: { type: String, required: true },
+});
+const User = mongoose.model("users", userSchema);
+
+app.get("/", (req, res) => {
+  res.send("all are good ");
 });
 
-const User = mongoose.model("User", userSchema);
-
-app.post("/ ", async (req, res) => {
-  const { name, contactNumber, description } = req.body;
-
-  if (!name || !contactNumber) {
-    console.error("Validation error: Missing required fields");
-    return res
-      .status(400)
-      .json({ message: "Name and contact number are required." });
-  }
-
+app.post("/users", async (req, res) => {
   try {
-    const newUser = new User({ name, contactNumber, description });
-    await newUser.save();
-    console.log("New user created:", newUser);
-    res
-      .status(201)
-      .json({ message: "User created successfully", user: newUser });
+    const newUser = new User(req.body);
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
   } catch (err) {
-    console.error("Error saving user:", err);
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+app.listen(5001, () => {
+  console.log(`Server is running on http://localhost:${5001}`);
 });
